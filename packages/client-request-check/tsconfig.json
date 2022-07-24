@@ -1,0 +1,22 @@
+{
+	"compilerOptions": {
+		"target": "esnext",
+		"module": "commonjs",
+		"checkJs": true,
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"strict": true,
+		"sourceMap": false,
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"declaration": true,
+		"allowJs": true,
+		"allowSyntheticDefaultImports": true,
+		"noUnusedLocals": true,
+		"strictNullChecks": true,
+		"noImplicitAny": true,
+		"removeComments": false
+	},
+	"include": ["src/index.ts"],
+	"exclude": ["node_modules", "dist"]
+}
