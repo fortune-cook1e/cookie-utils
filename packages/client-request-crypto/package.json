@@ -1,10 +1,19 @@
 {
-	"name": "client-request-check",
+	"name": "@fe-cookie/client-request-crypto",
 	"version": "1.0.0",
+	"author": "fortune_cookie",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"license": "MIT",
+	"engines": {
+		"node": ">=14.18.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fortune-cook1e/cookie-utils.git",
+		"directory": "packages/client-request-crypto"
+	},
 	"scripts": {
 		"dev": " cross-env NODE_ENV=development tsc -w",
 		"build": "cross-env NODE_ENV=production tsc --build"
@@ -12,5 +21,9 @@
 	"devDependencies": {
 		"@types/node": "^18.0.4",
 		"typescript": "^4.7.4"
+	},
+	"dependencies": {
+		"md5": "^2.3.0",
+		"sort-keys": "^5.0.0"
 	}
 }

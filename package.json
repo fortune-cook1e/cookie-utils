@@ -1,6 +1,9 @@
 {
 	"name": "cookie-utils",
 	"private": true,
+	"engines": {
+		"node": ">=14.18.0"
+	},
 	"workspaces": [
 		"packages/*"
 	],
