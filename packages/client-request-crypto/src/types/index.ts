@@ -4,8 +4,12 @@ export interface AnyOptions {
 
 export interface CryptoOptions {
 	enable?: boolean // 是否启用
-	options: AnyOptions
+	params: AnyOptions
 	salt: string
-	// old?: boolean
 	filterParams?: string[] // 需要过滤的参数
+}
+
+export interface CryptoReturns {
+	params: AnyOptions
+	sign?: string
 }

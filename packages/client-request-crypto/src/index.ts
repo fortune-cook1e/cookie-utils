@@ -1,5 +1,6 @@
-import { CryptoOptions, AnyOptions } from './types/index'
+import { CryptoOptions, AnyOptions, CryptoReturns } from './types/index'
 import sortKeys from 'sort-keys'
+import md5 from 'md5'
 
 /**
  * @description 将参数进行排序
@@ -8,23 +9,68 @@ import sortKeys from 'sort-keys'
  * @date 2022-07-29 23:26:24
  * @return {*}
  */
-export function sortParams(params: AnyOptions, filterParams?: string[]): AnyOptions {
+function sortParams(params: AnyOptions, filterParams?: string[]): AnyOptions {
 	if (filterParams && filterParams.length) {
 		params = params.filter((p: string) => !filterParams.includes(p))
 	}
 	return sortKeys(params, { deep: true })
 }
 
-export const clientCrypto = (opt: CryptoOptions) => {
-	const { enable = true, options } = opt || {}
+/**
+ * @description 将 Get Or Post请求参数进行格式化处理
+ * @date 2022-07-30 22:12:06
+ * @return {string}
+ */
+function formatParams({
+	params = {},
+	salt,
+	filterParams = []
+}: {
+	params: AnyOptions
+	salt: string
+	filterParams?: string[]
+}): string {
+	const newParams: AnyOptions = sortParams(params, filterParams)
+	const paramStr = (Object as any).entries(newParams).reduce((prev: string, next: any[]) => {
+		// eslint-disable-next-line prefer-const
+		let [key = '', val = ''] = next || []
+		if (!key) return prev
+
+		if (Array.isArray(val) || val === null) {
+			val = JSON.stringify(val)
+		} else if (Object.prototype.toString.call(val) === '[object Object]') {
+			val = JSON.stringify(val)
+		}
+
+		return `${prev}${key}=${val}&`
+	}, '')
+
+	return `${paramStr}${salt}`
+}
+
+/**
+ * @description 加密方法
+ * @param {CryptoOptions} opt
+ * @date 2022-07-30 22:12:34
+ * @return {*}
+ */
+export const clientCrypto = (opt: CryptoOptions): CryptoReturns => {
+	const { enable = true, params, salt, filterParams } = opt || {}
 	if (!enable) {
 		return {
-			options
+			params
 		}
 	}
 
-	const newOptions = JSON.parse(JSON.stringify(options))
+	const newOptions = JSON.parse(JSON.stringify(params))
 	if (!newOptions._ || typeof newOptions._ !== 'number') {
 		newOptions._ = Date.now()
+	}
+
+	const sign = formatParams({ params: newOptions, salt, filterParams })
+	const md5Sign = md5(sign)
+	return {
+		params: newOptions,
+		sign: md5Sign
 	}
 }

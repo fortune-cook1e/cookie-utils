@@ -2,82 +2,46 @@
 
 ## 客户端接口加密设计
 
-**加密方式：**
-1、客户端对所有请求参数（上传文件参数除外），并附加盐值、当前时间戳、拼接进行 MD5 加密
+### 加密规则
 
-**一：客户端**
+> 1. `全局拦截`API 请求的参数[GET/POST]，并转换为 JSON 格式。
+> 2. 请求体中附加时间戳参数，参数字段为`_`,值为时间戳。
+> 3. 对转换后的请求体 JSON 进行排序，
+> 4. 对排序好的 JSON 进行字符串拼接，
+> 5. 拼接好的字符串（通过`key=val&`）最后再附加上固定盐值得到最后需要加密的字符串（即`...&key=val&salt`）。
+> 6. 使用`MD5`的方式加密最后拼接的字符串，得到加密密钥。
 
-**MD5 加密规则：**
-1、所有请求参数（上传文件参数排除）参与加密
-2、附加固定盐值、当前时间戳，参与排序并生成 MD5 加密值
-3、加密后的 MD5 值通过 header 传输，header key: Autho-Token
+### 排序规则
 
-**GET 请求参数说明**
+> 1. 只对对象的 key 进行排序。
+> 2. 进行深度遍历排序。
+> 3. 当遇到数组时，检测数组的每项值，若为`对象(Object/Array)`则遍历对象进行递归排序，其他类型不做处理。
 
-若客户端发起的是 GET 请求，请在发起 xhr 请求之前自己拼接 query 参数
-**案例（这里以小程序为例）**
-**1.GET 请求**
+### 拼接规则
+
+> 1. 遍历 JSON 对象(只遍历第一层)，通过`key=val&` 的方式进行拼接 （使用`&`符合进行字段间的拼接）。
+> 2. 当某个 key 对应的值为`Object类型`时候（即：JSON/Array）时，通过`JSON.stringify` `转换为字符串`再进行拼接。
+
+### Started
 
 ```javascript
-// 由于无法保证小程序的query处理后的排序与算法是一致的，因此我们需要自己做一下query处理。
-import {
-	querySignWithTimestamp,
-	stringify,
-	transformObjectPropertyToJSON
-} from 'client-request-check'
+import { clientCrypto } from '@fe-cookie/client-request-crypto'
 
-let data = { a: 1, b: 2, c: {}, d: [] }
-// 清除一些空值
-data = JSON.parse(JSON.stringify(o.data || {}))
+// mock api params
+// GET OR POST 请求
 
-//1. 加密策略中的第一步需要将data中的第一层属性JSON化，包里提供了函数方便处理
-// { a: 1, b: 2, c: {}, d: [] } => { a: 1, b: 2, c: '{}', d: '[]' }
-data = transformObjectPropertyToJSON(data || {})
+const getParams = {
+	name: 'gaga',
+	age: 20
+}
 
-// 2. 将对象转换为query string
-data = stringify(data)
+const { sign } = clientCrypto({ params, salt: 'xxx' })
 
-// 3. 生成加密token及最终参数，第二个参数选填，不传用默认盐值
-const SALT = '盐值'
-const ret = querySignWithTimestamp(ret, { salt: SALT })
-
-// GET请求将参数直接拼接到url后面
-const url = 'https://example.com/api/xxx' + (ret.query ? `?${ret.query}` : '')
-const authoToken = ret.signing
-
-// 发送请求
-request({
-	url,
+axios({
+	url: 'xxx',
 	method: 'GET',
-	header: {
-		['Autho-Token']: authoToken
-	},
-	success: function (res) {}
-})
-
-var request = 'http://bff-api.com/example?a=10&b=20'
-```
-
-**2.POST 请求**
-
-```js
-import { objectSignWithTimestamp } from 'client-request-check'
-
-// 请求体
-const body = { a: 1 }
-
-const ret = objectSignWithTimestamp(body, {
-	salt: 'xxx'
-})
-const data = ret.body
-const authoToken = ret.signing
-
-request({
-	url: 'https://example.com/api/xxx',
-	method: 'POST',
-	data,
-	header: {
-		['Autho-Token']: authoToken
+	headers: {
+		'X-AUTHO-TOKEN': sign
 	}
 })
 ```
