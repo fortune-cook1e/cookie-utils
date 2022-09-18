@@ -9,10 +9,7 @@ import md5 from 'md5'
  * @date 2022-07-29 23:26:24
  * @return {*}
  */
-function sortParams(params: AnyOptions, filterParams?: string[]): AnyOptions {
-	if (filterParams && filterParams.length) {
-		params = params.filter((p: string) => !filterParams.includes(p))
-	}
+function sortParams(params: AnyOptions): AnyOptions {
 	return sortKeys(params, { deep: true })
 }
 
@@ -21,16 +18,8 @@ function sortParams(params: AnyOptions, filterParams?: string[]): AnyOptions {
  * @date 2022-07-30 22:12:06
  * @return {string}
  */
-function formatParams({
-	params = {},
-	salt,
-	filterParams = []
-}: {
-	params: AnyOptions
-	salt: string
-	filterParams?: string[]
-}): string {
-	const newParams: AnyOptions = sortParams(params, filterParams)
+function formatParams({ params = {}, salt }: { params: AnyOptions; salt: string }): string {
+	const newParams: AnyOptions = sortParams(params)
 	const paramStr = (Object as any).entries(newParams).reduce((prev: string, next: any[]) => {
 		// eslint-disable-next-line prefer-const
 		let [key = '', val = ''] = next || []
@@ -55,7 +44,7 @@ function formatParams({
  * @return {*}
  */
 export const clientCrypto = (opt: CryptoOptions): CryptoReturns => {
-	const { enable = true, params, salt, filterParams } = opt || {}
+	const { enable = true, params, salt } = opt || {}
 	if (!enable) {
 		return {
 			params
@@ -67,7 +56,7 @@ export const clientCrypto = (opt: CryptoOptions): CryptoReturns => {
 		newOptions._ = Date.now()
 	}
 
-	const sign = formatParams({ params: newOptions, salt, filterParams })
+	const sign = formatParams({ params: newOptions, salt })
 	const md5Sign = md5(sign)
 	return {
 		params: newOptions,
