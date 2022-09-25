@@ -1,0 +1,70 @@
+{
+	"name": "@fe-cookie/render-engine",
+	"version": "1.0.0",
+	"description": "",
+	"main": "dist/index.js",
+	"module": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"scripts": {
+		"dev": "tsc --outDir dist --declaration true && rollup -c -w",
+		"build": "tsc --outDir dist --declaration true && rollup -c",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "fortune_cookie",
+	"license": "ISC",
+	"files": [
+		"dist"
+	],
+	"engines": {
+		"node": ">=14.18.0"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/fortune-cook1e/cookie-utils.git",
+		"directory": "packages/render-engine"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.19.1",
+		"@babel/preset-env": "^7.19.1",
+		"@babel/preset-react": "^7.18.6",
+		"@babel/preset-typescript": "^7.18.6",
+		"@rollup/plugin-alias": "^3.1.9",
+		"@rollup/plugin-babel": "^5.3.1",
+		"@rollup/plugin-commonjs": "^22.0.2",
+		"@rollup/plugin-node-resolve": "^14.1.0",
+		"@rollup/plugin-replace": "^4.0.0",
+		"@types/react": "^18.0.21",
+		"@types/react-dom": "^18.0.6",
+		"@typescript-eslint/eslint-plugin": "^5.30.5",
+		"@typescript-eslint/parser": "^5.30.5",
+		"ahooks": "^3.7.1",
+		"eslint": "^8.24.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"eslint-plugin-react": "^7.31.8",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"less": "^4.1.3",
+		"postcss": "^8.4.16",
+		"prettier": "^2.7.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"rollup": "^2.79.1",
+		"rollup-plugin-dts": "^4.2.2",
+		"rollup-plugin-peer-deps-external": "^2.2.4",
+		"rollup-plugin-postcss": "^4.0.2",
+		"rollup-plugin-terser": "^7.0.2",
+		"rollup-plugin-typescript2": "^0.34.0",
+		"rollup-plugin-visualizer": "^5.8.1",
+		"stylelint": "^14.12.1",
+		"stylelint-config-prettier": "^9.0.3",
+		"stylelint-config-standard": "^28.0.0",
+		"stylelint-order": "^5.0.0",
+		"typescript": "^4.7.4"
+	},
+	"peerDependencies": {
+		"ahooks": "^3.7.1",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0"
+	}
+}
