@@ -22,8 +22,16 @@
 		"build": "cross-env NODE_ENV=production tsc --build"
 	},
 	"devDependencies": {
+		"@tsconfig/node14": "^1.0.3",
+		"@types/cross-spawn": "^6.0.2",
+		"@types/fs-extra": "^9.0.13",
+		"@types/inquirer": "^9.0.2",
 		"@types/md5": "^2.3.2",
 		"@types/node": "^18.0.4",
+		"@types/semver": "^7.3.12",
+		"chalk": "4.1.2",
+		"cookie-cli": "^1.1.3",
+		"inquirer": "8.0.1",
 		"typescript": "^4.7.4"
 	},
 	"dependencies": {

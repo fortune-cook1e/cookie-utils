@@ -1,0 +1,50 @@
+{
+	"name": "cookie-cli",
+	"version": "1.0.0",
+	"description": "cookie'cli",
+	"exports": "./dist/index.js",
+	"scripts": {
+		"dev": "tsc -w",
+		"compiler": "rimraf dist && tsc",
+		"lint": "eslint src --ext .js,.ts --fix",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"bin": {
+		"cookie": "bin/cookie.js"
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"react",
+		"cli"
+	],
+	"type": "module",
+	"engines": {
+		"node": ">=14.16"
+	},
+	"author": "fortune_cookie",
+	"license": "ISC",
+	"devDependencies": {
+		"@tsconfig/node14": "^1.0.3",
+		"@types/cross-spawn": "^6.0.2",
+		"@types/fs-extra": "^9.0.13",
+		"@types/inquirer": "^9.0.2",
+		"@types/semver": "^7.3.12",
+		"@typescript-eslint/eslint-plugin": "^5.30.5",
+		"@typescript-eslint/parser": "^5.30.5",
+		"chalk": "4.1.2",
+		"cookie-cli": "^1.1.3",
+		"cross-spawn": "^7.0.3",
+		"eslint": "^8.24.0",
+		"eslint-config-alloy": "^4.7.0",
+		"eslint-plugin-react": "^7.31.8",
+		"minimist": "^1.2.6",
+		"semver": "^7.3.8",
+		"typescript": "^4.7.4"
+	},
+	"dependencies": {
+		"fs-extra": "^10.1.0",
+		"inquirer": "8.0.1"
+	}
+}

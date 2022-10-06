@@ -15,6 +15,7 @@
 
 - 添加全局依赖 pnpm add xxx -D -W
 - 添加局部依赖 pnpm add xx -r -F packageA
+- 添加局部dev依赖 pnpm add xx -D -F packageXX
 - --save-peer 安装到peerDependencies和devDependencies中
 - npm publish --access public 发布包
 
