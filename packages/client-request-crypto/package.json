@@ -1,40 +1,34 @@
 {
-	"name": "@fe-cookie/client-request-crypto",
-	"version": "1.0.1",
-	"author": "fortune_cookie",
-	"main": "./dist/index.js",
-	"module": "./dist/index.js",
-	"types": "./dist/index.d.ts",
-	"license": "MIT",
-	"files": [
-		"dist"
-	],
-	"engines": {
-		"node": ">=14.18.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/fortune-cook1e/cookie-utils.git",
-		"directory": "packages/client-request-crypto"
-	},
-	"scripts": {
-		"dev": "cross-env NODE_ENV=development tsc -w",
-		"build": "cross-env NODE_ENV=production tsc --build"
-	},
-	"devDependencies": {
-		"@tsconfig/node14": "^1.0.3",
-		"@types/cross-spawn": "^6.0.2",
-		"@types/fs-extra": "^9.0.13",
-		"@types/inquirer": "^9.0.2",
-		"@types/md5": "^2.3.2",
-		"@types/node": "^18.0.4",
-		"@types/semver": "^7.3.12",
-		"chalk": "4.1.2",
-		"inquirer": "8.0.1",
-		"typescript": "^4.7.4"
-	},
-	"dependencies": {
-		"md5": "^2.3.0",
-		"sort-keys": "^5.0.0"
-	}
+  "name": "@fe-cookie/client-request-crypto",
+  "version": "1.0.1",
+  "author": "fortune_cookie",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=14.18.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fortune-cook1e/cookie-utils.git",
+    "directory": "packages/client-request-crypto"
+  },
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development tsc -w",
+    "build": "cross-env NODE_ENV=production tsc --build"
+  },
+  "devDependencies": {
+    "@types/md5": "^2.3.2",
+    "@types/node": "^18.0.4",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "md5": "^2.3.0",
+    "ora": "^6.1.2",
+    "sort-keys": "^5.0.0"
+  }
 }

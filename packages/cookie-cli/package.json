@@ -1,48 +1,64 @@
 {
-	"name": "cookie-cli",
-	"version": "1.0.0",
-	"description": "cookie'cli",
-	"exports": "./dist/index.js",
-	"scripts": {
-		"dev": "tsc -w",
-		"compiler": "rimraf dist && tsc",
-		"lint": "eslint src --ext .js,.ts --fix",
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"bin": {
-		"cookie": "bin/cookie.js"
-	},
-	"files": [
-		"dist"
-	],
-	"keywords": [
-		"react",
-		"cli"
-	],
-	"type": "module",
-	"engines": {
-		"node": ">=14.16"
-	},
-	"author": "fortune_cookie",
-	"license": "ISC",
-	"devDependencies": {
-		"@tsconfig/node14": "^1.0.3",
-		"@types/cross-spawn": "^6.0.2",
-		"@types/fs-extra": "^9.0.13",
-		"@types/inquirer": "^9.0.2",
-		"@types/semver": "^7.3.12",
-		"@typescript-eslint/parser": "^5.30.5",
-		"chalk": "4.1.2",
-		"cross-spawn": "^7.0.3",
-		"eslint": "^8.24.0",
-		"eslint-config-alloy": "^4.7.0",
-		"eslint-plugin-react": "^7.31.8",
-		"minimist": "^1.2.6",
-		"semver": "^7.3.8",
-		"typescript": "^4.7.4"
-	},
-	"dependencies": {
-		"fs-extra": "^10.1.0",
-		"inquirer": "8.0.1"
-	}
+  "name": "cookie-cli",
+  "version": "1.0.1",
+  "description": "cookie'cli",
+  "type": "module",
+  "license": "ISC",
+  "author": "fortune_cookie",
+  "bin": {
+    "cookie": "bin/cookie.js"
+  },
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "start": "rimraf dist && rollup -w -c",
+    "dev": "rimraf dist && tsc -w",
+    "compiler": "rimraf dist && tsc",
+    "lint": "eslint src --ext .js,.ts --fix",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist",
+    "bin",
+    "index.cjs"
+  ],
+  "keywords": [
+    "react",
+    "cli"
+  ],
+  "engines": {
+    "node": "^14.18.0 || >=16.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^14.1.0",
+    "@rollup/plugin-typescript": "^8.5.0",
+    "@tsconfig/node14": "^1.0.3",
+    "@types/cross-spawn": "^6.0.2",
+    "@types/fs-extra": "^9.0.13",
+    "@types/inquirer": "^9.0.2",
+    "@types/minimist": "^1.2.2",
+    "chalk": "4.1.2",
+    "cookie-cli": "^1.1.3",
+    "cross-spawn": "^7.0.3",
+    "minimist": "^1.2.6",
+    "rollup": "^2.79.1",
+    "rollup-plugin-typescript2": "^0.34.0",
+    "semver": "^7.3.8",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "inquirer": "8.0.1",
+    "ora": "^6.1.2"
+  }
 }

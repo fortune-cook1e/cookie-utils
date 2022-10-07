@@ -24,18 +24,12 @@
 	},
 	"keywords": [],
 	"dependencies": {
+		"ora": "^6.1.2",
 		"sort-keys": "^5.0.0"
 	},
 	"devDependencies": {
-		"@tsconfig/node14": "^1.0.3",
-		"@types/cross-spawn": "^6.0.2",
-		"@types/fs-extra": "^9.0.13",
-		"@types/inquirer": "^9.0.2",
 		"@types/koa": "^2.13.5",
 		"@types/node": "^18.0.4",
-		"@types/semver": "^7.3.12",
-		"chalk": "4.1.2",
-		"inquirer": "8.0.1",
 		"koa": "^2.13.4"
 	}
 }
