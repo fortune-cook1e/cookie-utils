@@ -13,8 +13,8 @@
 -r: 依赖安装到每个包中
 -F: --filter 缩写,将依赖安装到某个包
 
-- 添加全局依赖 pnpm add xxx -D -W
-- 添加局部依赖 pnpm add xx -r -F packageA
+- 添加全局依赖 pnpm add xxx -w -D
+- 添加局部依赖 pnpm add xx -r -F packageA  / 对于局部依赖，最简单的办法就是cd packages/http
 - 添加局部dev依赖 pnpm add xx -D -F packageXX
 - --save-peer 安装到 peerDependencies 和 devDependencies中
 - npm publish --access public 发布包
