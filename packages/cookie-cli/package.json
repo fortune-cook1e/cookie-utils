@@ -1,5 +1,5 @@
 {
-  "name": "cookie-cli",
+  "name": "@fe-cookie/cli",
   "version": "1.0.1",
   "description": "cookie'cli",
   "type": "module",
