@@ -1,22 +1,20 @@
 import childProcess from 'child_process'
-import path from 'path'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 
 import chalk from 'chalk'
 import spawn from 'cross-spawn'
 import fs from 'fs-extra'
 import inquirer from 'inquirer'
-import * as semver from 'semver'
+import semver from 'semver'
 
 import { deleteExistFileQuestion } from '../constants/questions.js'
 import { AnyOptions } from '../types/index.js'
 
-// const chalk = require('chalk')
-// const spawn = require('cross-spawn')
-// const fs = require('fs-extra')
-// const inquirer = require('inquirer')
-// const semver = require('semver')
-
 const execSync = childProcess.execSync
+// https://flaviocopes.com/fix-dirname-not-defined-es-module-scope/
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 export const checkCurrentNodeVersion = (wanted: string): void => {
   if (!semver.satisfies(process.version, wanted)) {
@@ -34,8 +32,7 @@ export const checkCurrentNodeVersion = (wanted: string): void => {
 }
 
 export const getPackageInfo = (): AnyOptions => {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require('../../package.json')
+  return JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../package.json')) as any)
 }
 
 /**

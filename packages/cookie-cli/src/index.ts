@@ -1,9 +1,9 @@
-import packageJson from '../package.json'
+import CookieCli from './cli.js'
+import { checkCurrentNodeVersion, getPackageInfo } from './utils/index.js'
 
-import CookieCli from './cli'
-import { checkCurrentNodeVersion } from './utils'
+const pkg = getPackageInfo()
 
-const wantedNodeVersion = packageJson.engines.node
+const wantedNodeVersion = pkg.engines.node
 
 checkCurrentNodeVersion(wantedNodeVersion)
 

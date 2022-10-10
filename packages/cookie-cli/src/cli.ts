@@ -2,8 +2,8 @@ import chalk from 'chalk'
 import inquirer from 'inquirer'
 import minimist from 'minimist'
 
-import { createAppQuestions } from './constants/questions'
-import { getPackageInfo } from './utils'
+import { createAppQuestions } from './constants/questions.js'
+import { getPackageInfo } from './utils/index.js'
 
 class CookieCli {
   public appName?: string
@@ -28,6 +28,7 @@ class CookieCli {
     const _ = argvs._
     const command = _[0]
     const appName = _[1]
+    console.log({ _ })
     this.appName = appName
     if (command) {
       switch (command) {

@@ -8,19 +8,12 @@
   "bin": {
     "cookie": "bin/cookie.js"
   },
-  "main": "./dist/index.js",
-  "module": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./index.cjs"
-    },
-    "./package.json": "./package.json"
-  },
+  "main": "./dist/src/index.js",
+  "module": "./dist/src/index.js",
+  "types": "./dist/src/index.d.ts",
+  "exports": "./dist/src/index.js",
   "scripts": {
-    "start": "rimraf dist && rollup -w -c",
+    "start": "rimraf dist && tsc -w",
     "dev": "rimraf dist && tsc -w",
     "compiler": "rimraf dist && tsc",
     "publih": "pnpm public --access public",
@@ -29,8 +22,7 @@
   },
   "files": [
     "dist",
-    "bin",
-    "index.cjs"
+    "bin"
   ],
   "keywords": [
     "react",
@@ -40,23 +32,17 @@
     "node": "^14.18.0 || >=16.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^14.1.0",
-    "@rollup/plugin-typescript": "^8.5.0",
     "@tsconfig/node14": "^1.0.3",
     "@types/cross-spawn": "^6.0.2",
     "@types/fs-extra": "^9.0.13",
     "@types/inquirer": "^9.0.2",
     "@types/minimist": "^1.2.2",
-    "rollup": "^2.79.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "rollup-plugin-typescript2": "^0.34.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {
     "chalk": "^5.1.0",
     "cross-spawn": "^7.0.3",
+    "download-git-repo": "^3.0.2",
     "fs-extra": "^10.1.0",
     "inquirer": "8.0.1",
     "minimist": "^1.2.6",

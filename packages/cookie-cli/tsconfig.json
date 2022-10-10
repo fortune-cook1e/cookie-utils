@@ -1,19 +1,21 @@
 {
+  "extends": "@tsconfig/node14/tsconfig.json",
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "ES2020",
+    "target": "es2016",
+    "module": "NodeNext",
     "lib": ["ES2020"],
-    "moduleResolution": "Node",
+    "moduleResolution": "NodeNext",
     "noImplicitOverride": true,
     "noUnusedLocals": false,
     "esModuleInterop": true,
     "useUnknownInCatchVariables": false,
     "allowSyntheticDefaultImports": true,
     "strict": false,
-    "declaration": false,
+    "declaration": true,
     "resolveJsonModule": true,
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "skipLibCheck": true
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "package.json"],
   "exclude": ["node_modules"]
 }
