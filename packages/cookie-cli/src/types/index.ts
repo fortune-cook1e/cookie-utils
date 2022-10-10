@@ -3,11 +3,16 @@ export type CreateType = 'app' | 'plugin'
 export type AppType = 'react' | 'vue'
 
 export enum App {
-  REACT_INTEGRATION_APP, // react 集合多种功能应用
-  REACT_BASIC_APP, // react 基础应用
-  REACT_QK_SUB_APP, // react qiankun 子应用模板 (react-router-dom 采用v6)
-  REACT_QK_MAIN_APP, // react qiankun 基座应用
-  REACT_QK_SUB_APP_V2 // react qiankun 子应用模板 v2 (react-router-dom 采用v5)
+  react_webpack_vite_app = 'react_webpack_vite_app' // react+webpack+vite
+  // REACT_QK_SUB_APP, // react qiankun 子应用模板 (react-router-dom 采用v6)
+  // REACT_QK_MAIN_APP, // react qiankun 基座应用
+}
+
+export enum Plugin {
+  eslint_react_ts = 'eslint_react_ts', // react + ts 的eslint插件
+  ts_node_esm = 'ts_node_esm', // tsconfig的esm环境开发
+  stylelint = 'stylelint', // stylelint
+  Prettier = 'prettier' // prettier配置
 }
 
 export type Source = 'repo'
@@ -40,10 +45,10 @@ export interface AppItem {
 
 export interface PluginItem {
   title: string
-  plugin: string
-  pluginType: 'eslint' | 'stylelint' | 'tsconfig'
-  package: 'eslint-config-cookie' | 'stylelint-config-cookie'
-  source: 'npm' | 'packages' // 下载来源是npm或是其他
+  plugin: Plugin
+  // pluginType: 'eslint' | 'stylelint' | 'tsconfig'
+  // package: 'eslint-config-cookie' | 'stylelint-config-cookie'
+  // source: 'npm' | 'packages' // 下载来源是npm或是其他
 }
 
 export interface QuestionItem {

@@ -1,4 +1,4 @@
-import { PluginItem } from '../types/index.js'
+import { PluginItem, Plugin } from '../types/index.js'
 
 // eslint template
 export const ESLINT_BASIC = 'eslint-basic'
@@ -13,47 +13,9 @@ export const STYLELINT_BASIC = 'stylelint-basic'
 // ts template
 export const TSCONFIG_BASIC = 'tsconfig-basic'
 
-export const PLUGIN_LIST: PluginItem[] = [
-	{
-		title: 'eslint 基础配置',
-		plugin: ESLINT_BASIC,
-		pluginType: 'eslint',
-		package: 'eslint-config-cookie',
-		source: 'npm'
-	},
-	{
-		title: 'eslint-typescript 配置',
-		plugin: ESLINT_TYPESCRIPT,
-		pluginType: 'eslint',
-		package: 'eslint-config-cookie',
-		source: 'npm'
-	},
-	{
-		title: 'eslint-react 配置',
-		plugin: ESLINT_REACT,
-		pluginType: 'eslint',
-		package: 'eslint-config-cookie',
-		source: 'npm'
-	},
-	{
-		title: 'eslint-react-typescript 配置',
-		plugin: ESLINT_TS_REACT,
-		pluginType: 'eslint',
-		package: 'eslint-config-cookie',
-		source: 'npm'
-	},
-	{
-		title: 'stylelint 基础配置',
-		plugin: STYLELINT_BASIC,
-		pluginType: 'stylelint',
-		package: 'stylelint-config-cookie',
-		source: 'npm'
-	},
-	{
-		title: 'tsconfig 基础配置',
-		plugin: TSCONFIG_BASIC,
-		pluginType: 'tsconfig',
-		package: 'eslint-config-cookie',
-		source: 'npm'
-	}
+export const PLUGINS: PluginItem[] = [
+  {
+    title: 'Prettier',
+    plugin: Plugin.Prettier
+  }
 ]

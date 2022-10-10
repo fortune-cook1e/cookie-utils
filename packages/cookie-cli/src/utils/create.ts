@@ -11,6 +11,7 @@ import { CreateParams, DownloadAppParams } from '../types/index.js'
 import { filePathExist, copyFiles } from './index.js'
 
 const DEFAULT_CREATE_PATH = process.cwd()
+const spinner = ora()
 
 export async function create({
   createType = 'app',
@@ -21,34 +22,42 @@ export async function create({
   try {
     const isApp = createType === 'app'
     if (isApp) {
+      spinner.start(`begin to create the app named ${chalk.blue(createName)}`)
       await createApp({
         createName,
         app
       })
+      spinner.succeed(chalk.blue('创建应用成功'))
     } else {
-      // createPlugin({
-      //   pluginType,
-      //   pluginTemplate,
-      //   createPath
-      // })
+      spinner.start(`begin to create the ${plugin} plugin`)
+      createPlugin({
+        plugin
+      })
     }
   } catch (e) {
-    console.log(e)
+    spinner.fail(`创建失败:${e.message || e.msg || '未知错误'}`)
+    process.exit(1)
   }
 }
 /**
  * @description 创建 app
  * @date 2022-10-10 17:43:13
  */
-const createApp = ({ app, createName = '' }) => {
+const createApp = async ({ app, createName = '' }) => {
   const currentCreateAppInfo = APP_LIST.find(a => a.app === app)
   if (currentCreateAppInfo) {
-    downloadApp({ appInfo: currentCreateAppInfo, createName })
+    await downloadApp({ appInfo: currentCreateAppInfo, createName })
   } else {
     console.log(chalk.red(`The template ${app} is invalid!`))
     process.exit(1)
   }
 }
+
+/**
+ * @description 创建插件的入口
+ * @date 2022-10-10 23:35:05
+ */
+const createPlugin = async ({ plugin }) => {}
 
 // 下载应用
 const downloadApp = async ({
@@ -58,8 +67,8 @@ const downloadApp = async ({
 }: DownloadAppParams) => {
   const { appPath, source } = appInfo
   const templatePath = path.join(createPath, createName)
-  // 如果目录存在则直接删除
-  const templatePathExist = await filePathExist(templatePath, true)
+  // 如果目录存在则直接停止创建
+  const templatePathExist = await filePathExist(templatePath, false)
   if (!templatePathExist) {
     fs.mkdirSync(templatePath)
   }
@@ -80,18 +89,18 @@ const downloadApp = async ({
 }
 
 const downloadFromRepo = ({ repoPath = '', templatePath = '' }) => {
-  const spinner = ora('正在拉取仓库模板～').start()
-  spinner.color = 'yellow'
-  const name = path.basename(templatePath)
-  download(repoPath, name, err => {
-    if (err) {
-      spinner.color = 'red'
-      spinner.fail(chalk.red('拉取远程模板仓库失败！'))
-      console.log({ err })
-      process.exit(1)
-    }
-    spinner.color = 'green'
-    spinner.succeed(`${chalk.blue('拉取远程模板仓库成功！')}`)
+  return new Promise((resolve, reject) => {
+    spinner.color = 'yellow'
+    spinner.text = '正在拉取仓库模板~'
+    const name = path.basename(templatePath)
+    download(repoPath, name, err => {
+      if (err) {
+        spinner.fail(chalk.red('拉取远程模板仓库失败！'))
+        reject(err)
+      }
+      resolve('')
+      spinner.succeed(`${chalk.blue('拉取远程模板仓库成功！')}`)
+    })
   })
 }
 

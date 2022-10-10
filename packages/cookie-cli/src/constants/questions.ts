@@ -1,7 +1,7 @@
 import { QuestionItem } from '../types/index.js'
 
 import { APP_LIST } from './app.js'
-import { PLUGIN_LIST } from './plugin.js'
+import { PLUGINS } from './plugin.js'
 
 // 创建应用题时
 export const createAppQuestions: QuestionItem[] = [
@@ -19,7 +19,7 @@ export const createPluginQuestions: QuestionItem[] = [
     type: 'list',
     name: 'plugin',
     message: 'What kind of plugin do u want',
-    choices: PLUGIN_LIST.map(p => ({ name: p.title, value: p.plugin }))
+    choices: PLUGINS.map(p => ({ name: p.title, value: p.plugin }))
   }
 ]
 

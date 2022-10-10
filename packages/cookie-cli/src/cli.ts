@@ -2,7 +2,8 @@ import chalk from 'chalk'
 import inquirer from 'inquirer'
 import minimist from 'minimist'
 
-import { createAppQuestions } from './constants/questions.js'
+import { createAppQuestions, createPluginQuestions } from './constants/questions.js'
+import { create } from './utils/create.js'
 import { getPackageInfo } from './utils/index.js'
 
 class CookieCli {
@@ -28,7 +29,6 @@ class CookieCli {
     const _ = argvs._
     const command = _[0]
     const appName = _[1]
-    console.log({ _ })
     this.appName = appName
     if (command) {
       switch (command) {
@@ -36,10 +36,10 @@ class CookieCli {
           this.getAppOptions()
           break
         }
-        // case 'plugin': {
-        //   this.getPluginOptions()
-        //   break
-        // }
+        case 'plugin': {
+          this.getPluginOptions()
+          break
+        }
       }
     } else {
       if (argvs.help) {
@@ -62,11 +62,19 @@ class CookieCli {
 
   public async getAppOptions(): Promise<void> {
     const { app = '' } = await inquirer.prompt(createAppQuestions)
-    // await create({
-    //   createType: 'app',
-    //   createName: this.appName,
-    //   app
-    // })
+    create({
+      createType: 'app',
+      createName: this.appName,
+      app
+    })
+  }
+
+  public async getPluginOptions(): Promise<void> {
+    const { plugin } = await inquirer.prompt(createPluginQuestions)
+    create({
+      createType: 'plugin',
+      plugin
+    })
   }
 }
 
