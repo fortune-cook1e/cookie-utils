@@ -50,5 +50,5 @@ export interface QuestionItem {
   type: 'input' | 'list'
   name: string
   message: string
-  choices: string[] | { name: string; value: string }[]
+  choices: string[] | { name: string; value: App | string }[]
 }
