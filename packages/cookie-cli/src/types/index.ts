@@ -22,7 +22,7 @@ export interface CreateParams {
   createPath?: string // 创建路径
   createName?: string // 创建应用的名称
   app?: App
-  plugin?: string
+  plugin?: Plugin
 }
 
 export interface DownloadAppParams {

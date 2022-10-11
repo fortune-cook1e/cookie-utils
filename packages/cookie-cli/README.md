@@ -1,13 +1,20 @@
 
 # Cookie-Cli
 
-一个脚手架用于快速初始化项目
+一个脚手架用于快速初始化项目与插件
 
 ## Usage
 ```bash
 npm add @fe-cookie/cli
 cookie create xxx  // create a application
+cookie plugin // create the plugin
 ```
+
+## Features
+- create
+  - React + ts + webpack + vite
+- plugin
+  - prettier
 
 ## Docs
 

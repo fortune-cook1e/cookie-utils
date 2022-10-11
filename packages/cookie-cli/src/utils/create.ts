@@ -5,8 +5,11 @@ import download from 'download-git-repo'
 import fs from 'fs-extra'
 import ora from 'ora'
 
+import { createPrettier } from '../configs/prettier/index.js'
 import { APP_LIST } from '../constants/app.js'
 import { CreateParams, DownloadAppParams } from '../types/index.js'
+
+import { Plugin } from './../types/index.js'
 
 import { filePathExist, copyFiles } from './index.js'
 
@@ -17,7 +20,7 @@ export async function create({
   createType = 'app',
   createName = '', // 创建文件夹名称
   app,
-  plugin = ''
+  plugin
 }: CreateParams): Promise<void> {
   try {
     const isApp = createType === 'app'
@@ -57,7 +60,20 @@ const createApp = async ({ app, createName = '' }) => {
  * @description 创建插件的入口
  * @date 2022-10-10 23:35:05
  */
-const createPlugin = async ({ plugin }) => {}
+const createPlugin = async ({ plugin }) => {
+  try {
+    switch (plugin) {
+      case Plugin.Prettier:
+        spinner.color = 'yellow'
+        spinner.text = '正在创建Prettier...'
+        await createPrettier()
+        spinner.succeed(`创建 ${chalk.blue('.prettierrc')} 文件成功`)
+        return
+    }
+  } catch (e) {
+    spinner.fail(`创建失败:${e.message || e.msg || '未知错误'}`)
+  }
+}
 
 // 下载应用
 const downloadApp = async ({

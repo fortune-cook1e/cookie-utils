@@ -175,7 +175,7 @@ export const canUseNpm = (): Promise<boolean> => {
 }
 
 /**
- * @description 检查是否能用yarn or npm
+ * @description 检查是否能用yarn or npm or pnpm
  * @param {*} async
  * @date 2021-05-04 11:18:52
  * @see
@@ -237,11 +237,12 @@ export const packageInit = async (cwd = ''): Promise<boolean> => {
  * @description 检查文件是否存在
  * @param {string} files
  * @param {string} cwd
+ * @return {string} filename
  * @date 2021-06-14 16:47:04
  */
-export const checkFileIfExists = (files: string[], cwd: string): boolean => {
-  if (!files.length) return false
-  return files.some((file: string) => {
+export const checkFileIfExists = (files: string[], cwd: string = process.cwd()): string => {
+  if (!files.length) return undefined
+  return files.find((file: string) => {
     const filePath = path.resolve(cwd, file)
     return fs.pathExistsSync(filePath)
   })
@@ -287,4 +288,57 @@ export const copyFiles = async (targetFiles: string, souceFiles: string): Promis
     console.log(e)
     process.exit(1)
   }
+}
+
+/**
+ * @description 读json文件
+ * @param {string} jsonFilePath
+ * @date 2022-10-11 16:30:18
+ * @return {*} 返回解析后的json格式
+ */
+export const readJson = (jsonFilePath: string) => {
+  if (!jsonFilePath) return
+  return JSON.parse(fs.readFileSync(jsonFilePath) as any)
+}
+
+/**
+ * @description 将对象输出为json文件
+ * @param {string} writePath
+ * @param {any} writeData
+ * @date 2022-10-11 16:34:49
+ * @return {*}
+ */
+export const writeJson = (writePath: string, writeData: any, cover = true) => {
+  const existed = filePathExist(writePath, true)
+  if (!existed && !cover) {
+    chalk.red(`输出Json文件失败，${writePath}已存在`)
+  }
+  return fs.writeFileSync(writePath, JSON.stringify(writeData, null, 2), 'utf-8')
+}
+
+/**
+ * @description 将依赖合并到 package.json中
+ * @param {*} isDev 是否为开发依赖
+ * @param {*} dependencies 需要合并的依赖
+ * @date 2022-10-11 16:24:19
+ * @return {object} pkg
+ */
+export const mergePkgDependencies = (dependencies = {}, isDev = true) => {
+  if (!dependencies) return
+  const pgkPath = path.resolve(process.cwd(), './package.json')
+
+  if (!pgkPath) {
+    chalk.red('package.json 文件不存在')
+    process.exit(1)
+  }
+  const originPkg = readJson(pgkPath)
+  let dependenciesKey = isDev ? 'devDependencies' : 'dependencies'
+  let newPkg = {
+    ...originPkg,
+    [dependenciesKey]: {
+      ...originPkg[dependenciesKey],
+      ...dependencies
+    }
+  }
+  return newPkg
 }
