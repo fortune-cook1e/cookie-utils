@@ -244,6 +244,7 @@ export const checkFileIfExists = (files: string[], cwd: string = process.cwd()):
   if (!files.length) return undefined
   return files.find((file: string) => {
     const filePath = path.resolve(cwd, file)
+    const result = fs.pathExistsSync(filePath)
     return fs.pathExistsSync(filePath)
   })
 }
@@ -308,10 +309,18 @@ export const readJson = (jsonFilePath: string) => {
  * @date 2022-10-11 16:34:49
  * @return {*}
  */
-export const writeJson = (writePath: string, writeData: any, cover = true) => {
+export const writeJson = ({
+  writePath,
+  writeData,
+  cover = true
+}: {
+  writePath: string
+  writeData: AnyOptions
+  cover?: boolean
+}) => {
   const existed = filePathExist(writePath, true)
   if (!existed && !cover) {
-    chalk.red(`输出Json文件失败，${writePath}已存在`)
+    throw new Error(`输出Json文件失败，${writePath}已存在`)
   }
   return fs.writeFileSync(writePath, JSON.stringify(writeData, null, 2), 'utf-8')
 }
@@ -323,7 +332,7 @@ export const writeJson = (writePath: string, writeData: any, cover = true) => {
  * @date 2022-10-11 16:24:19
  * @return {object} pkg
  */
-export const mergePkgDependencies = (dependencies = {}, isDev = true) => {
+export const mergePkgDependencies = ({ dependencies = {}, isDev = true }) => {
   if (!dependencies) return
   const pgkPath = path.resolve(process.cwd(), './package.json')
 

@@ -57,3 +57,13 @@ export interface QuestionItem {
   message: string
   choices: string[] | { name: string; value: App | string }[]
 }
+
+export interface PluginConfigJson {
+  config: AnyOptions
+  checkFiles: string[]
+  devDependencies?: AnyOptions
+  dependencies?: AnyOptions
+  output: {
+    file: '.prettierrc'
+  }
+}

@@ -5,11 +5,11 @@ import download from 'download-git-repo'
 import fs from 'fs-extra'
 import ora from 'ora'
 
-import { createPrettier } from '../configs/prettier/index.js'
 import { APP_LIST } from '../constants/app.js'
 import { CreateParams, DownloadAppParams } from '../types/index.js'
 
 import { Plugin } from './../types/index.js'
+import { createPlugin } from './plugin.js'
 
 import { filePathExist, copyFiles } from './index.js'
 
@@ -33,12 +33,11 @@ export async function create({
       spinner.succeed(chalk.blue('创建应用成功'))
     } else {
       spinner.start(`begin to create the ${plugin} plugin`)
-      createPlugin({
-        plugin
-      })
+      createPlugin(plugin)
+      spinner.succeed(`创建 ${chalk.blue(plugin)} 插件成功`)
     }
   } catch (e) {
-    spinner.fail(`创建失败:${e.message || e.msg || '未知错误'}`)
+    spinner.fail(`创建失败:${chalk.red(e.message || e.msg || '未知错误')}`)
     process.exit(1)
   }
 }
@@ -53,25 +52,6 @@ const createApp = async ({ app, createName = '' }) => {
   } else {
     console.log(chalk.red(`The template ${app} is invalid!`))
     process.exit(1)
-  }
-}
-
-/**
- * @description 创建插件的入口
- * @date 2022-10-10 23:35:05
- */
-const createPlugin = async ({ plugin }) => {
-  try {
-    switch (plugin) {
-      case Plugin.Prettier:
-        spinner.color = 'yellow'
-        spinner.text = '正在创建Prettier...'
-        await createPrettier()
-        spinner.succeed(`创建 ${chalk.blue('.prettierrc')} 文件成功`)
-        return
-    }
-  } catch (e) {
-    spinner.fail(`创建失败:${e.message || e.msg || '未知错误'}`)
   }
 }
 
