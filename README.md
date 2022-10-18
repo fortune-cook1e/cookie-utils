@@ -5,6 +5,9 @@
 ## Features
 
 - render-engine low-code 渲染引擎
+- cookie-cli 脚手架——用于快速创建应用或插件
+- client-request-crypto 客户端请求加密插件
+- sever-request-crypto 服务端请求加密插件
 
 ## pnpm 多包管理命令记录
 
