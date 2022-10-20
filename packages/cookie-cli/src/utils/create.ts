@@ -37,7 +37,7 @@ export async function create({
       spinner.succeed(`创建 ${chalk.blue(plugin)} 插件成功`)
     }
   } catch (e) {
-    spinner.fail(`创建失败:${chalk.red(e.message || e.msg || '未知错误')}`)
+    spinner.fail(`创建失败:${chalk.red(e.message || e.msg || '未知错误')},${plugin}`)
     process.exit(1)
   }
 }

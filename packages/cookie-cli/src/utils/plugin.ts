@@ -23,13 +23,7 @@ const DEFAULT_CREATE_PATH = process.cwd()
  * @return {PluginConfigJson}
  */
 function getPluginConfigJson(plugin: Plugin): PluginConfigJson {
-  let configPath = ''
-  // TIP: 增加插件只需要在这里增加即可
-  switch (plugin) {
-    case Plugin.Prettier:
-      configPath = 'prettier'
-  }
-  const configJsonPath = path.resolve(__dirname, `../configs/${configPath}/config.json`)
+  const configJsonPath = path.resolve(__dirname, `../configs/${plugin}/config.json`)
   return readJson(configJsonPath)
 }
 
