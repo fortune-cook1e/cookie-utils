@@ -17,5 +17,13 @@ export const PLUGINS: PluginItem[] = [
   {
     title: 'Prettier',
     plugin: Plugin.Prettier
+  },
+  {
+    title: 'Stylelint-Less',
+    plugin: Plugin.StylelintLess
+  },
+  {
+    title: 'Eslint + React + ts',
+    plugin: Plugin.EslintReactTs
   }
 ]

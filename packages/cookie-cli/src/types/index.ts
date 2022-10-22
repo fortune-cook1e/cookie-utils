@@ -9,9 +9,9 @@ export enum App {
 }
 
 export enum Plugin {
-  eslint_react_ts = 'eslint_react_ts', // react + ts 的eslint插件
-  ts_node_esm = 'ts_node_esm', // tsconfig的esm环境开发
-  stylelint = 'stylelint', // stylelint
+  EslintReactTs = 'eslint-react-ts', // react + ts 的eslint插件
+  TsNodeEsm = 'ts-node-esm', // tsconfig的esm环境开发
+  StylelintLess = 'stylelint-less', // stylelint
   Prettier = 'prettier' // prettier配置
 }
 
