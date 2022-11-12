@@ -10,7 +10,8 @@
       "plugin:@typescript-eslint/recommended",
       "eslint:recommended",
       "prettier",
-      "plugin:react/recommended"
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime"
     ],
     "settings": {
       "react": {
@@ -24,8 +25,7 @@
       "sourceType": "module"
     },
     "globals": {
-      "JSX": true,
-      "IS_DEV": true
+      "JSX": true
     },
     "rules": {
       "@typescript-eslint/no-require-imports": 0,
